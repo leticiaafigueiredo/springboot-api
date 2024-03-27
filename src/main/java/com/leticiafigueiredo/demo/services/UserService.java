@@ -8,16 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.leticiafigueiredo.demo.repositories.UserRepository;
 import com.leticiafigueiredo.demo.models.User;
-import com.leticiafigueiredo.demo.repositories.TaskRepository;
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private TaskRepository taskRepository;
 
     public User findById(Long id) {
         Optional<User> user = this.userRepository.findById(id);
@@ -29,7 +25,6 @@ public class UserService {
     public User create(User obj) {
         obj.setId(null);
         obj = this.userRepository.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
         return obj;
     }
 
